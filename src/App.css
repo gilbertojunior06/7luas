@@ -1,38 +1,256 @@
 .App {
+  font-family: "Segoe UI", Arial, sans-serif;
+  padding: 10px;
+  background: #fdfdfd;
+  min-height: 100vh;
+}
+
+/* Logo 7 Luas */
+.logo-container {
+  text-align: center;
+  margin: 30px auto;
+}
+
+.logo-text {
+  font-size: 32px;
+  font-weight: bold;
+  color: #673ab7;
+  margin-bottom: 20px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  letter-spacing: 2px;
+}
+
+.luas {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap; /* permite quebrar em telas pequenas */
+}
+
+.lua {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #ccc 70%);
+  box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+
+.lua:hover {
+  transform: scale(1.2);
+}
+
+/* Container das turmas */
+.turmas {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Botões gerais */
+.turma-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 280px;
+  min-height: 45px;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.turma-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Botões específicos */
+.turma-btn.iniciante {
+  background: linear-gradient(135deg, #4caf50, #81c784);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.turma-btn.avancada {
+  background: linear-gradient(135deg, #673ab7, #9575cd);
+}
+
+.turma-btn.aulas {
+  background: linear-gradient(135deg, #2196f3, #64b5f6);
+}
+
+.turma-btn.localizacao {
+  background: linear-gradient(135deg, #ff9800, #ffb74d);
+}
+
+.turma-btn.whatsapp {
+  background: linear-gradient(135deg, #25d366, #66bb6a);
+}
+
+/* Botão voltar */
+.voltar {
+  margin-bottom: 15px;
+  background: #eee;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Tabela */
+.tabela-container {
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 6px;
+  text-align: center;
+}
+
+th {
+  background: #f7f7f7;
+  color: #555;
+}
+
+/* Botões de presença/falta */
+button.presente {
+  background-color: #4caf50;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+button.falta {
+  background-color: #f44336;
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Snackbar */
+.snackbar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+.snackbar.presente {
+  background-color: #4caf50;
+}
+
+.snackbar.falta {
+  background-color: #f44336;
+}
+
+.snackbar.limpo {
+  background-color: #999;
+}
+
+@keyframes fadein {
+  from { bottom: 0; opacity: 0; }
+  to { bottom: 20px; opacity: 1; }
+}
+
+@keyframes fadeout {
+  from { bottom: 20px; opacity: 1; }
+  to { bottom: 0; opacity: 0; }
+}
+
+/* Página de Aulas */
+.aulas-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.aulas-container h2 {
+  color: #2196f3;
+  margin-bottom: 15px;
+}
+
+.aulas-container ul {
+  list-style: none;
+  padding: 0;
+  font-size: 18px;
+}
+
+.aulas-container li {
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+/* Responsivo para celular */
+@media (max-width: 600px) {
+  .logo-text {
+    font-size: 24px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .turma-btn {
+    font-size: 14px;
+    width: 100%;
+    min-height: 40px;
+    padding: 8px;
   }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 4px;
+  }
+
+  button {
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+  }
+
+  .aulas-container ul {
+    font-size: 16px;
+  }
+}
+
+/* Rodapé */
+.footer {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+.footer a {
+  color: #25d366; /* verde do WhatsApp */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.mapa {
+  margin-top: 15px;
 }
