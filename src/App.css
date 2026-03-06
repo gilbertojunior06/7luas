@@ -24,7 +24,7 @@
   display: flex;
   justify-content: center;
   gap: 12px;
-  flex-wrap: wrap; /* permite quebrar em telas pequenas */
+  flex-wrap: wrap;
 }
 
 .lua {
@@ -168,6 +168,32 @@ button.falta {
   background-color: #999;
 }
 
+/* Página de contato */
+.contato-container {
+  max-width: 400px;
+  margin: 20px auto;
+  text-align: left;
+}
+
+.contato-container form div {
+  margin-bottom: 12px;
+}
+
+.contato-container label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.contato-container input,
+.contato-container textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+/* Animações */
 @keyframes fadein {
   from { bottom: 0; opacity: 0; }
   to { bottom: 20px; opacity: 1; }
@@ -236,21 +262,27 @@ button.falta {
 .footer {
   margin-top: 40px;
   padding: 20px;
-  background-color: #f5f5f5;
   text-align: center;
-  border-top: 1px solid #ddd;
 }
 
-.footer a {
-  color: #25d366; /* verde do WhatsApp */
-  text-decoration: none;
-  font-weight: bold;
+.social-icon {
+  width: 32px;
+  height: 32px;
+  margin: 0 10px;
+  vertical-align: middle;
+  transition: transform 0.2s;
 }
 
-.footer a:hover {
-  text-decoration: underline;
+.social-icon:hover {
+  transform: scale(1.2);
 }
 
-.mapa {
-  margin-top: 15px;
+.logo-img {
+  width: 200px;       /* controla o tamanho */
+  height: 200px;      /* força proporção quadrada */
+  margin: 20px auto;
+  display: block;
+  border-radius: 50%; /* deixa circular */
+  object-fit: cover;  /* garante que a imagem se ajuste dentro do círculo */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* opcional: sombra para destacar */
 }

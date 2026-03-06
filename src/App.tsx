@@ -22,11 +22,10 @@ const turmas: Turma[] = [
   },
 ];
 
-// Dias simulados: apenas terça e quinta
 const diasDoMes: number[] = [2, 4, 9, 11, 16, 18, 23, 25, 30];
 
 function App() {
-  const [pagina, setPagina] = useState<"home" | "turma" | "aulas">("home");
+  const [pagina, setPagina] = useState<"home" | "turma" | "aulas" | "contato">("home");
   const [turmaSelecionada, setTurmaSelecionada] = useState<Turma | null>(null);
   const [presencas, setPresencas] = useState<Record<string, string>>({});
   const [mensagem, setMensagem] = useState<string>("");
@@ -50,17 +49,15 @@ function App() {
     <div className="App">
       {pagina === "home" && (
         <div className="turmas">
-          {/* Logo 7 Luas */}
           <div className="logo-container">
-            <h1 className="logo-text">7 Luas</h1>
-            <div className="luas">
-              {Array.from({ length: 0 }).map((_, i) => (
-                <div key={i} className="lua"></div>
-              ))}
-            </div>
+            <img 
+                  src="https://scontent-gru1-2.xx.fbcdn.net/v/t39.30808-6/327594339_586363646199883_7458059908283760702_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=nsGOZY3vzFoQ7kNvwGqhOos&_nc_oc=AdkatNoZ4MD2bYJSxNyjYh6komUyFzFkXW0Jp-NaBTtWztbr0C9yoHjwgo17G9a6t5F6eauwjZ78Nq7rwNRI2XxN&_nc_zt=23&_nc_ht=scontent-gru1-2.xx&_nc_gid=zSG4UXZRkVbHv97gHlcj-g&_nc_ss=8&oh=00_Afxi0_TaodU6UoeupANC7CujAJpRHuLcW7uw56v2pHhUVw&oe=69AFE2C9" 
+                  alt="Logo 7 Luas" 
+                  className="logo-img" 
+                />
+
           </div>
 
-          {/* Botões das turmas */}
           {turmas.map((turma) => (
             <button
               key={turma.nome}
@@ -76,12 +73,10 @@ function App() {
             </button>
           ))}
 
-          {/* Botão Aulas */}
           <button className="turma-btn aulas" onClick={() => setPagina("aulas")}>
-            Aulas 
+            Aulas
           </button>
 
-          {/* Botão Localização */}
           <button
             className="turma-btn localizacao"
             onClick={() =>
@@ -91,20 +86,11 @@ function App() {
               )
             }
           >
-            📍 Localização da Sala
+            Localização
           </button>
 
-          {/* Botão WhatsApp */}
-          <button
-            className="turma-btn whatsapp"
-            onClick={() =>
-              window.open(
-                "https://wa.me/5511998800966?text=Olá,%20gostaria%20de%20informações%20sobre%20as%20aulas",
-                "_blank"
-              )
-            }
-          >
-            📞 WhatsApp
+          <button className="turma-btn whatsapp" onClick={() => setPagina("contato")}>
+            Contato
           </button>
         </div>
       )}
@@ -177,11 +163,42 @@ function App() {
           </button>
           <h2>Horários das Aulas</h2>
           <ul>
-            <li>segunda- feira: 10h00 – 13h00</li>
+            <li>Segunda-feira: 10h00 – 13h00</li>
             <li>Terça-feira: 09h00 – 12h00</li>
             <li>Quinta-feira: 09h00 – 12h00</li>
-            <li>sexta-feira: 10h00 – 13h00</li>
+            <li>Sexta-feira: 10h00 – 13h00</li>
           </ul>
+        </div>
+      )}
+
+      {pagina === "contato" && (
+        <div className="contato-container">
+          <button className="voltar" onClick={() => setPagina("home")}>
+            ← Voltar
+          </button>
+          <h2>Entre em Contato</h2>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              alert("Mensagem enviada com sucesso!");
+            }}
+          >
+            <div>
+              <label>Nome:</label>
+              <input type="text" required />
+            </div>
+            <div>
+              <label>Email:</label>
+              <input type="email" required />
+            </div>
+            <div>
+              <label>Mensagem:</label>
+              <textarea required />
+            </div>
+            <button type="submit" className="turma-btn whatsapp">
+              Enviar
+            </button>
+          </form>
         </div>
       )}
 
@@ -198,6 +215,20 @@ function App() {
           {mensagem}
         </div>
       )}
+
+      {/* Rodapé com ícones */}
+      <footer className="footer">
+      <a href="https://www.instagram.com/explore/locations/108651894794963/sala-7-luas-dancas-e-terapias/" target="_blank" rel="noreferrer">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" className="social-icon" />
+      </a>
+      <a href="https://www.facebook.com/sala7luas/" target="_blank" rel="noreferrer">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" className="social-icon" />
+      </a>
+      <a href="https://wa.me/5511994994145" target="_blank" rel="noreferrer">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" className="social-icon" />
+      </a>
+      </footer>
+
     </div>
   );
 }
