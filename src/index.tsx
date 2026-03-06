@@ -1,12 +1,14 @@
-import './App.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Olá, Gilberto 🚀</h1>
-      <p>Seu React + Vite está rodando!</p>
-    </div>
-  )
-}
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 
-export default App
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
