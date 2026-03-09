@@ -1,0 +1,43 @@
+.contato-container {
+  margin: 60px auto;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.contato-container h2 {
+  text-align: center;
+  color: #673ab7;
+  margin-bottom: 20px;
+}
+
+.contato-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contato-container label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.contato-container input,
+.contato-container textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.contato-container textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.turma-btn.whatsapp {
+  background: linear-gradient(135deg, #25d366, #66bb6a);
+  color: white;
+  font-weight: bold;
+}

@@ -1,0 +1,89 @@
+.turma-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.voltar {
+  background: #0077cc;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.voltar:hover {
+  background: #005fa3;
+}
+
+.page-title {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.filtros {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.dias-semana {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tabela-scroll {
+  overflow-x: auto;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+table {
+  border-collapse: collapse;
+  width: max-content;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 8px;
+  min-width: 60px;
+  cursor: pointer;
+}
+
+th {
+  background: #0077cc;
+  color: white;
+}
+
+.aluno {
+  font-weight: bold;
+  background: #f0f0f0;
+}
+
+.presente {
+  color: green;
+  font-weight: bold;
+}
+
+.falta {
+  color: red;
+  font-weight: bold;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .filtros {
+    flex-direction: column;
+  }
+
+  th, td {
+    padding: 6px;
+    min-width: 50px;
+  }
+}
