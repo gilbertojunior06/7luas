@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/7luas/static/css/main.d9c130e5.css",
-    "main.js": "/7luas/static/js/main.517c6501.js",
+    "main.js": "/7luas/static/js/main.cd5531a5.js",
     "index.html": "/7luas/index.html",
     "main.d9c130e5.css.map": "/7luas/static/css/main.d9c130e5.css.map",
-    "main.517c6501.js.map": "/7luas/static/js/main.517c6501.js.map"
+    "main.cd5531a5.js.map": "/7luas/static/js/main.cd5531a5.js.map"
   },
   "entrypoints": [
     "static/css/main.d9c130e5.css",
-    "static/js/main.517c6501.js"
+    "static/js/main.cd5531a5.js"
   ]
 }
