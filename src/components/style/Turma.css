@@ -1,59 +1,154 @@
+/* ESTRUTURA E FUNDO */
 .turma-page {
   padding: 20px;
-  font-family: Arial, sans-serif;
-  background: #f9f9f9;
-  border-radius: 8px;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+.turma-header {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .voltar {
   background: #0077cc;
   color: white;
   border: none;
-  padding: 8px 14px;
-  border-radius: 5px;
+  padding: 8px 15px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-bottom: 10px;
-}
-
-.voltar:hover {
-  background: #005fa3;
 }
 
 .page-title {
-  margin-bottom: 15px;
-  color: #333;
+  flex: 1;
+  text-align: center;
+  margin: 0;
+  color: #1a1a1a;
 }
 
-.filtros {
+/* FILTROS E SELETORES */
+.filtros-modernos {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 450px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 15px;
 }
 
-.dias-semana {
+.seletor-tempo-container {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.info-data {
+  text-align: center;
+}
+
+.mes-extenso {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  color: #0077cc;
+}
+
+.ano-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
+  margin-top: 4px;
+}
+
+.ano-controls button {
+  background: #ddd;
+  border: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.ano-numero {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #666;
+}
+
+.seta-principal {
+  background: #0077cc;
+  color: white;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* CHIPS DIAS DA SEMANA */
+.dias-semana-chips {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
   flex-wrap: wrap;
+}
+
+.chip-dia {
+  border: 1px solid #ccc;
+  background: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.chip-dia.ativo {
+  background: #0077cc;
+  color: white;
+  border-color: #0077cc;
+}
+
+/* TABELA */
+.tabela-container {
+  width: 100%;
+  max-width: 1100px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #888;
 }
 
 .tabela-scroll {
   overflow-x: auto;
-  border-radius: 8px;
-  padding: 10px;
 }
 
 table {
   border-collapse: collapse;
-  width: max-content;
+  width: 100%;
+  min-width: 700px;
 }
 
 th, td {
-  border: 1px solid #ddd;
+  border: 1px solid #888 !important;
+  padding: 12px 8px;
   text-align: center;
-  padding: 8px;
-  min-width: 60px;
-  cursor: pointer;
 }
 
 th {
@@ -61,29 +156,33 @@ th {
   color: white;
 }
 
-.aluno {
-  font-weight: bold;
-  background: #f0f0f0;
+.col-fixa {
+  position: sticky;
+  left: 0;
+  z-index: 5;
 }
 
-.presente {
-  color: green;
+th.col-fixa { background: #005fa3; }
+td.nome-aluno {
+  background: #fff;
+  text-align: left;
+  padding-left: 15px;
+  font-weight: bold;
+  border-right: 2px solid #666 !important;
+}
+
+/* ESTILOS DE PRESENÇA */
+.celula-presenca {
+  cursor: pointer;
   font-weight: bold;
 }
 
-.falta {
-  color: red;
-  font-weight: bold;
-}
+.celula-presenca.p { background-color: #d4edda !important; color: #155724 !important; }
+.celula-presenca.f { background-color: #f8d7da !important; color: #721c24 !important; }
+.celula-presenca.a { background-color: #fff3cd !important; color: #856404 !important; }
 
-/* Responsividade */
-@media (max-width: 600px) {
-  .filtros {
-    flex-direction: column;
-  }
-
-  th, td {
-    padding: 6px;
-    min-width: 50px;
-  }
+/* MOBILE */
+@media (max-width: 768px) {
+  .tabela-container { max-height: 65vh; }
+  .turma-page { padding: 10px; }
 }

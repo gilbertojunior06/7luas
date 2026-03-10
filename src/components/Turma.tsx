@@ -12,7 +12,7 @@ function gerarDiasDoMes(mes: number, ano: number, diasSemanaSelecionados: number
   const ultimoDia = new Date(ano, mes, 0).getDate();
   for (let dia = 1; dia <= ultimoDia; dia++) {
     const data = new Date(ano, mes - 1, dia);
-    const diaSemana = data.getDay(); // 0=Dom, 1=Seg, ..., 6=Sab
+    const diaSemana = data.getDay();
     if (diasSemanaSelecionados.includes(diaSemana)) {
       dias.push(`${dia.toString().padStart(2, "0")}/${mes.toString().padStart(2, "0")}`);
     }
@@ -21,24 +21,44 @@ function gerarDiasDoMes(mes: number, ano: number, diasSemanaSelecionados: number
 }
 
 export default function Turma({ turmaSelecionada, setPagina }: TurmaProps) {
-  const [mesSelecionado, setMesSelecionado] = useState<number>(3);
+  const [mesSelecionado, setMesSelecionado] = useState<number>(3); 
+  const [anoSelecionado, setAnoSelecionado] = useState<number>(2026);
   const [diasSemanaSelecionados, setDiasSemanaSelecionados] = useState<number[]>([1, 3]);
   const [chamada, setChamada] = useState<Record<string, Record<string, string>>>({});
 
-  const diasDeAula = gerarDiasDoMes(mesSelecionado, 2026, diasSemanaSelecionados);
+  const diasDeAula = gerarDiasDoMes(mesSelecionado, anoSelecionado, diasSemanaSelecionados);
 
   const alternarChamada = (aluno: string, dia: string) => {
     setChamada((prev) => {
-      const alunoChamada = prev[aluno] || {};
+      const alunoKey = `${aluno}-${anoSelecionado}`; // Chave única por aluno/ano
+      const alunoChamada = prev[alunoKey] || {};
       const valorAtual = alunoChamada[dia];
-      const novoValor = valorAtual === "P" ? "F" : "P";
+      
+      let novoValor = "";
+      if (!valorAtual) novoValor = "P";
+      else if (valorAtual === "P") novoValor = "F";
+      else if (valorAtual === "F") novoValor = "A";
+      else novoValor = "";
+
       return {
         ...prev,
-        [aluno]: {
-          ...alunoChamada,
-          [dia]: novoValor,
-        },
+        [alunoKey]: { ...alunoChamada, [dia]: novoValor },
       };
+    });
+  };
+
+  const mudarMes = (direcao: number) => {
+    setMesSelecionado((prev) => {
+      let novoMes = prev + direcao;
+      if (novoMes < 1) {
+        setAnoSelecionado(a => a - 1);
+        return 12;
+      }
+      if (novoMes > 12) {
+        setAnoSelecionado(a => a + 1);
+        return 1;
+      }
+      return novoMes;
     });
   };
 
@@ -50,63 +70,72 @@ export default function Turma({ turmaSelecionada, setPagina }: TurmaProps) {
 
   return (
     <div className="turma-page">
-      <button className="voltar" onClick={() => setPagina("home")}>
-        ← Voltar
-      </button>
-      <h2 className="page-title">{turmaSelecionada.nome}</h2>
+      <header className="turma-header">
+        <button className="voltar" onClick={() => setPagina("home")}>← Voltar</button>
+        <h2 className="page-title">{turmaSelecionada.nome}</h2>
+      </header>
 
-      <div className="filtros">
-        <label>
-          Mês:
-          <select value={mesSelecionado} onChange={(e) => setMesSelecionado(Number(e.target.value))}>
-            <option value={1}>Janeiro</option>
-            <option value={2}>Fevereiro</option>
-            <option value={3}>Março</option>
-            <option value={4}>Abril</option>
-            <option value={5}>Maio</option>
-            <option value={6}>Junho</option>
-            <option value={7}>Julho</option>
-            <option value={8}>Agosto</option>
-            <option value={9}>Setembro</option>
-            <option value={10}>Outubro</option>
-            <option value={11}>Novembro</option>
-            <option value={12}>Dezembro</option>
-          </select>
-        </label>
+      <section className="filtros-modernos">
+        <div className="seletor-tempo-container">
+          <button className="seta-principal" onClick={() => mudarMes(-1)}>❮</button>
+          
+          <div className="info-data">
+            <span className="mes-extenso">
+              {new Date(anoSelecionado, mesSelecionado - 1).toLocaleString('pt-BR', { month: 'long' })}
+            </span>
+            <div className="ano-controls">
+              <button onClick={() => setAnoSelecionado(a => a - 1)}>−</button>
+              <span className="ano-numero">{anoSelecionado}</span>
+              <button onClick={() => setAnoSelecionado(a => a + 1)}>+</button>
+            </div>
+          </div>
 
-        <div className="dias-semana">
-          <label><input type="checkbox" checked={diasSemanaSelecionados.includes(1)} onChange={() => toggleDiaSemana(1)} /> Seg</label>
-          <label><input type="checkbox" checked={diasSemanaSelecionados.includes(2)} onChange={() => toggleDiaSemana(2)} /> Ter</label>
-          <label><input type="checkbox" checked={diasSemanaSelecionados.includes(3)} onChange={() => toggleDiaSemana(3)} /> Qua</label>
-          <label><input type="checkbox" checked={diasSemanaSelecionados.includes(4)} onChange={() => toggleDiaSemana(4)} /> Qui</label>
-          <label><input type="checkbox" checked={diasSemanaSelecionados.includes(5)} onChange={() => toggleDiaSemana(5)} /> Sex</label>
+          <button className="seta-principal" onClick={() => mudarMes(1)}>❯</button>
         </div>
-      </div>
 
-      <div className="tabela-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>Aluno</th>
-              {diasDeAula.map((dia) => (
-                <th key={dia}>{dia}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {turmaSelecionada.alunos.map((aluno: string) => (
-              <tr key={aluno}>
-                <td className="aluno">{aluno}</td>
-                {diasDeAula.map((dia) => (
-                  <td key={dia} onClick={() => alternarChamada(aluno, dia)}>
-                    {chamada[aluno]?.[dia] === "P" && <span className="presente">P</span>}
-                    {chamada[aluno]?.[dia] === "F" && <span className="falta">F</span>}
-                  </td>
-                ))}
+        <div className="dias-semana-chips">
+          {[1, 2, 3, 4, 5, 6].map((d) => (
+            <button 
+              key={d} 
+              className={`chip-dia ${diasSemanaSelecionados.includes(d) ? 'ativo' : ''}`}
+              onClick={() => toggleDiaSemana(d)}
+            >
+              {["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"][d]}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <div className="tabela-container">
+        <div className="tabela-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th className="col-fixa">Aluno</th>
+                {diasDeAula.map((dia) => <th key={dia}>{dia}</th>)}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {turmaSelecionada.alunos.map((aluno: string) => (
+                <tr key={aluno}>
+                  <td className="col-fixa nome-aluno">{aluno}</td>
+                  {diasDeAula.map((dia) => {
+                    const status = chamada[`${aluno}-${anoSelecionado}`]?.[dia];
+                    return (
+                      <td 
+                        key={dia} 
+                        onClick={() => alternarChamada(aluno, dia)}
+                        className={`celula-presenca ${status === "P" ? "p" : status === "F" ? "f" : status === "A" ? "a" : ""}`}
+                      >
+                        {status || "-"}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
